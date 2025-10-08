@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "Sockets\\src\\main\\java"
+    ],
+    "java.project.referencedLibraries": [],
+    "java.project.outputPath": "Sockets\\class"
+}
