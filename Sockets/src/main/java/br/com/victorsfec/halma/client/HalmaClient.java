@@ -228,8 +228,15 @@ public class HalmaClient {
                     lastGameStats = data;
                     break;
                 case Protocol.WELCOME:
-                    // Define o ID do jogador
-                    gameFrame.setPlayerId(Integer.parseInt(data));
+                    // Lida com o novo formato da mensagem WELCOME (ID:Nome)
+                    String[] welcomeParts = data.split(Protocol.SEPARATOR, 2);
+                    gameFrame.setPlayerId(Integer.parseInt(welcomeParts[0]));
+                    if (welcomeParts.length > 1) {
+                        String newPlayerName = welcomeParts[1];
+                        // Atualiza o nome no cliente e na interface gráfica
+                        HalmaClient.this.playerName = newPlayerName;
+                        gameFrame.setPlayerName(newPlayerName);
+                    }
                     break;
                 case Protocol.OPPONENT_FOUND:
                     // Define o nome do oponente e atualiza o status.

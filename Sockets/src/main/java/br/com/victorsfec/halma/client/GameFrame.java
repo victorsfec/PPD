@@ -313,6 +313,30 @@ public class GameFrame extends JFrame {
             });
         }
         
+        //Indica o sombreado da área de início dos jogadores.
+        private boolean isGoalZone(int row, int col) {
+            // Área inicial do Jogador 1
+            if ((row == 0 && col <= 4) ||
+                (row == 1 && col <= 3) ||
+                (row == 2 && col <= 2) ||
+                (row == 3 && col <= 1) ||
+                (row == 4 && col == 0)) {
+                return true;
+            }
+        
+            // Área inicial do Jogador 2
+            final int SIZE = Board.SIZE;
+            if ((row == SIZE - 1 && col >= SIZE - 5) ||
+                (row == SIZE - 2 && col >= SIZE - 4) ||
+                (row == SIZE - 3 && col >= SIZE - 3) ||
+                (row == SIZE - 4 && col >= SIZE - 2) ||
+                (row == SIZE - 5 && col >= SIZE - 1)) {
+                return true;
+            }
+            
+            return false;
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -363,6 +387,12 @@ public class GameFrame extends JFrame {
                     // Calcula as coordenadas x, y da célula.
                     int x = MARGIN + col * cellWidth;
                     int y = MARGIN + row * cellHeight;
+                    
+                    // ALTERAÇÃO: Desenha o sombreamento para as zonas de objetivo
+                    if (isGoalZone(row, col)) {
+                        g2d.setColor(new Color(0, 0, 0, 40)); // Preto com 40 de opacidade
+                        g2d.fillRect(x, y, cellWidth, cellHeight);
+                    }
 
                     // Calcula a margem e o diâmetro da peça dentro da célula.
                     int margin_piece = cellWidth / 10;

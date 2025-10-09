@@ -14,7 +14,49 @@ public class Board {
     public Board() {
         grid = new Piece[SIZE][SIZE];
         setupPieces(); // Chama o método para posicionar as peças iniciais.
+        //setupAlmostWinningStateForPlayer1(); //caso de teste para verificar o campeão
     }
+    
+    //Caso de teste, para dá a vitória ao player
+    /*
+     private void setupAlmostWinningStateForPlayer1() {
+        // Posiciona 14 das 15 peças do Jogador 1 na zona de vitória (canto inferior direito).
+        grid[9][9] = new Piece(1);
+        grid[9][8] = new Piece(1);
+        grid[9][7] = new Piece(1);
+        grid[9][6] = new Piece(1);
+        grid[9][5] = new Piece(1);
+        grid[8][9] = new Piece(1);
+        grid[8][8] = new Piece(1);
+        grid[8][7] = new Piece(1);
+        grid[8][6] = new Piece(1);
+        grid[7][9] = new Piece(1);
+        grid[7][8] = new Piece(1);
+        grid[7][7] = new Piece(1);
+        grid[6][9] = new Piece(1);
+        grid[6][8] = new Piece(1);
+        // O espaço em grid[5][9] é intencionalmente deixado vazio para a jogada final.
+
+        // Posiciona a 15ª peça do Jogador 1 em (5,8), adjacente ao espaço da vitória.
+        grid[5][8] = new Piece(1);
+
+        // Posiciona as 15 peças do Jogador 2 de forma espalhada pelo tabuleiro.
+        grid[2][5] = new Piece(2);
+        grid[3][3] = new Piece(2);
+        grid[4][6] = new Piece(2);
+        grid[1][8] = new Piece(2);
+        grid[0][7] = new Piece(2);
+        grid[7][0] = new Piece(2);
+        grid[6][2] = new Piece(2);
+        grid[8][3] = new Piece(2);
+        grid[7][5] = new Piece(2);
+        grid[9][0] = new Piece(2);
+        grid[9][2] = new Piece(2);
+        grid[8][1] = new Piece(2);
+        grid[7][1] = new Piece(2);
+        grid[6][7] = new Piece(2);
+        grid[5][5] = new Piece(2);
+    } */
 
     private void setupPieces() {
         // Posiciona as 15 peças do Jogador 1 no canto superior esquerdo.

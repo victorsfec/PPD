@@ -27,8 +27,8 @@ public class GameSession implements Runnable {
     private int chainJumpRow;
     private int chainJumpCol;
 
-    private final String player1Name;
-    private final String player2Name;
+    private String player1Name;
+    private String player2Name;
 
     public GameSession(ClientHandler player1, ClientHandler player2) {
         this.player1 = player1;
@@ -36,18 +36,27 @@ public class GameSession implements Runnable {
         this.board = new Board();
         this.currentPlayer = 1; // O jogador 1 sempre começa.
 
-        this.player1Name = player1.getPlayerName();
-        this.player2Name = player2.getPlayerName();
-
         this.player1.setGameSession(this);
         this.player2.setGameSession(this);
     }
 
     @Override
     public void run() {
-        // Envia as mensagens iniciais para os jogadores.
-        player1.sendMessage(Protocol.WELCOME + Protocol.SEPARATOR + "1");
-        player2.sendMessage(Protocol.WELCOME + Protocol.SEPARATOR + "2");
+        // Lógica para verificar e diferenciar nomes iguais
+        if (player1.getPlayerName().equals(player2.getPlayerName())) {
+            String originalName = player1.getPlayerName();
+            player1.setPlayerName(originalName + " (1)");
+            player2.setPlayerName(originalName + " (2)");
+        }
+        
+        // Nomes da sessão são definidos aqui, após a verificação
+        this.player1Name = player1.getPlayerName();
+        this.player2Name = player2.getPlayerName();
+
+        // Mensagem WELCOME agora envia o nome final do jogador
+        player1.sendMessage(Protocol.WELCOME + Protocol.SEPARATOR + "1" + Protocol.SEPARATOR + this.player1Name);
+        player2.sendMessage(Protocol.WELCOME + Protocol.SEPARATOR + "2" + Protocol.SEPARATOR + this.player2Name);
+        
         player1.sendMessage(Protocol.OPPONENT_FOUND + Protocol.SEPARATOR + player2Name);
         player2.sendMessage(Protocol.OPPONENT_FOUND + Protocol.SEPARATOR + player1Name);
         player1.sendMessage(Protocol.GAME_START);
